@@ -246,5 +246,5 @@ resource "aws_lb" "external-elb" {
   internal           = false
   load_balancer_type = "application"
   security_groups    = [aws_security_group.web-sg.id]
-  subnets            = [aws_subnet.application-subnet-1.id,aws_subnet.application-subnet-2.id]
+  subnets            = [aws_subnet.web-subnet-1.id, aws_subnet.web-subnet-2.id]
 }
