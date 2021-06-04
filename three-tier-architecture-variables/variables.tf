@@ -49,12 +49,22 @@ variable "instance_type" {
 variable "rds_instance" {
   type = map(any)
   default = {
-      allocated_storage   = 10
-      engine              = "mysql"
-      engine_version      = "8.0.20"
-      instance_class      = "db.t2.micro"
-      multi_az            = false
-      name                = "mydb"
-      skip_final_snapshot = true
+    allocated_storage   = 10
+    engine              = "mysql"
+    engine_version      = "8.0.20"
+    instance_class      = "db.t2.micro"
+    multi_az            = false
+    name                = "mydb"
+    skip_final_snapshot = true
   }
+}
+
+#Create database sensitive variables
+variable "user_information" {
+  type = map(any)
+  default = {
+    username = "username"
+    password = "password"
+  }
+  sensitive = true
 }
