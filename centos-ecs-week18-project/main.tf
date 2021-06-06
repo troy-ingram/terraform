@@ -24,67 +24,63 @@ resource "aws_ecs_task_definition" "service" {
 
 resource "aws_ecs_service" "centos" {
   name            = "centos"
-  cluster         = aws_ecs_cluster.default.id
+  cluster         = aws_ecs_cluster.default.arn
   task_definition = aws_ecs_task_definition.service.arn
-  desired_count   = 3
-  iam_role        = aws_iam_role.test_role.arn
-  depends_on      = [aws_iam_role_policy.test_policy]
+  desired_count   = 1
+  # iam_role        = aws_iam_role.my_role.arn
+  # depends_on      = [aws_iam_role_policy.my_policy]
 }
 
-resource "aws_iam_role" "test_role" {
-  name = "test_role"
+# resource "aws_iam_role" "my_role" {
+#   name = "my_role"
 
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
-  assume_role_policy = jsonencode({
-    Version = "2012-10-17"
-    Statement = [
-      {
-        Action = "sts:AssumeRole"
-        Effect = "Allow"
-        Sid    = ""
-        Principal = {
-          Service = "ec2.amazonaws.com"
-        }
-      },
-    ]
-  })
+#   # Terraform's "jsonencode" function converts a
+#   # Terraform expression result to valid JSON syntax.
+#   assume_role_policy = jsonencode({
+#     "Version" : "2008-10-17",
+#     "Statement" : [
+#       {
+#         "Sid" : "",
+#         "Effect" : "Allow",
+#         "Principal" : {
+#           "Service" : "ec2.amazonaws.com"
+#         },
+#         "Action" : "sts:AssumeRole"
+#       }
+#     ]
+#   })
+# }
 
-  tags = {
-    tag-key = "tag-value"
-  }
-}
+# resource "aws_iam_role_policy" "my_policy" {
+#   name = "my_policy"
+#   role = aws_iam_role.my_role.id
 
-resource "aws_iam_role_policy" "test_policy" {
-  name = "test_policy"
-  role = aws_iam_role.test_role.id
-
-  # Terraform's "jsonencode" function converts a
-  # Terraform expression result to valid JSON syntax.
-  policy = jsonencode({
-    "Version" : "2012-10-17",
-    "Statement" : [
-      {
-        "Effect" : "Allow",
-        "Action" : [
-          "ec2:DescribeTags",
-          "ecs:CreateCluster",
-          "ecs:DeregisterContainerInstance",
-          "ecs:DiscoverPollEndpoint",
-          "ecs:Poll",
-          "ecs:RegisterContainerInstance",
-          "ecs:StartTelemetrySession",
-          "ecs:UpdateContainerInstancesState",
-          "ecs:Submit*",
-          "ecr:GetAuthorizationToken",
-          "ecr:BatchCheckLayerAvailability",
-          "ecr:GetDownloadUrlForLayer",
-          "ecr:BatchGetImage",
-          "logs:CreateLogStream",
-          "logs:PutLogEvents"
-        ],
-        "Resource" : "*"
-      }
-    ]
-  })
-}
+#   # Terraform's "jsonencode" function converts a
+#   # Terraform expression result to valid JSON syntax.
+#   policy = jsonencode({
+#     "Version" : "2012-10-17",
+#     "Statement" : [
+#       {
+#         "Effect" : "Allow",
+#         "Action" : [
+#           "ec2:DescribeTags",
+#           "ecs:CreateCluster",
+#           "ecs:DeregisterContainerInstance",
+#           "ecs:DiscoverPollEndpoint",
+#           "ecs:Poll",
+#           "ecs:RegisterContainerInstance",
+#           "ecs:StartTelemetrySession",
+#           "ecs:UpdateContainerInstancesState",
+#           "ecs:Submit*",
+#           "ecr:GetAuthorizationToken",
+#           "ecr:BatchCheckLayerAvailability",
+#           "ecr:GetDownloadUrlForLayer",
+#           "ecr:BatchGetImage",
+#           "logs:CreateLogStream",
+#           "logs:PutLogEvents"
+#         ],
+#         "Resource" : "*"
+#       }
+#     ]
+#   })
+# }
