@@ -2,6 +2,7 @@
 
 A collection of my Terraform projects. Full write ups below.
 
+https://troy-ingram.medium.com/amazon-elastic-container-service-ecs-cluster-with-centos-image-using-terraform-registry-c100f85625d
 
 https://troy-ingram.medium.com/terraform-using-variables-and-count-b161e0ce61e1
 
